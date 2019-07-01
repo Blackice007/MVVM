@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+                name="userData"
+                type="monim.blackice.business.data.model.user.UserData"/>
+    </data>
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <TextView android:id="@+id/tvAmount"
+                  android:text="25"
+                  android:textColor="@color/colorAccent"
+                  android:textSize="35sp"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"/>
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/container"
+                tools:context=".view.activity.login.LoginActivity"/>
+
+
+    </LinearLayout>
+
+
+</layout>
