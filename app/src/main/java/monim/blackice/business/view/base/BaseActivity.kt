@@ -1,6 +1,7 @@
 package monim.blackice.business.view.base
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -9,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import monim.blackice.business.MyApp
@@ -23,6 +26,7 @@ import monim.blackice.business.R
 import monim.blackice.business.data.DataManager
 import monim.blackice.business.data.network.IApiService
 import monim.blackice.business.data.network.RetrofitFactory
+import monim.blackice.business.databinding.ToolbarLayoutBinding
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -38,14 +42,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     abstract fun viewRelatedTask()
 
-    override fun startActivity(intent: Intent) {
-        super.startActivity(intent)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
-
     fun apiCaller(): IApiService {
         return RetrofitFactory.providePostApi()
     }
@@ -54,6 +50,50 @@ abstract class BaseActivity : AppCompatActivity() {
         val application = applicationContext as MyApp
         return application.getDataManager()
     }
+
+    override fun startActivity(intent: Intent) {
+        super.startActivity(intent)
+        this.overridePendingTransition(R.anim.activity_in, R.anim.activity_out)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.overridePendingTransition(R.anim.activity_in_back, R.anim.activity_out_back)
+
+    }
+
+    fun setToolbar(context: Context, toolbar: ToolbarLayoutBinding, title: String, isBackPressed: Boolean) {
+        toolbar.drawerTitle.setText(title)
+        toolbar.drawerTitle.setTextColor(resources.getColor(R.color.white))
+        if (isBackPressed) {
+            toolbar.drawerProfileImage.isVisible = false
+            toolbar.drawerNavigationIcon.isVisible = true
+            toolbar.drawerNavigationIcon.setImageResource(R.drawable.back)
+            toolbar.drawerNavigationIcon.setOnClickListener({ view -> onBackPressed() })
+        } else {
+            toolbar.drawerNavigationIcon.isVisible = false
+            toolbar.drawerProfileImage.isVisible = true
+//            toolbar.tvDrawerPoints.text = LocalStorage.getString(context!!, "total_point") +"p"
+//            if (LocalStorage.getString(context!!, "profileImage") != null || LocalStorage.getString(
+//                    context!!,
+//                    "profileImage"
+//                ) == ""
+//            ) {
+//                GlideLoader.loadCircularCachedImage(
+//                    context!!,
+//                    toolbar.drawerProfileImage,
+//                    LocalStorage.getString(context!!, "profileImage")
+//                )
+//            } else {
+//                toolbar.drawerProfileImage.isVisible = false
+//            }
+            toolbar.drawerNavigationIcon.setImageResource(R.drawable.menu)
+            toolbar.drawerNavigationIcon.setOnClickListener({ view ->
+
+            })
+        }
+    }
+
 
     fun showToast(context: Context, message: String) {
         val toast = Toast(context)
