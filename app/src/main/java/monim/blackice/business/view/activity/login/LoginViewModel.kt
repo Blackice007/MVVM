@@ -13,19 +13,7 @@ import sslwireless.android.easy.loyal.merchant.viewmodel.util.ApiCallbackHelper
 class LoginViewModel(dataManager: DataManager) : BaseViewModel(dataManager) {
 
     private lateinit var view: LoginActivity
-    val hashMap: HashMap<String, MutableLiveData<LiveDataResult<BaseModel<Any>>>> = HashMap()
-
-    val loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val amountLiveData: MutableLiveData<String> = MutableLiveData()
-
-    fun addLiveData(key: String, values: MutableLiveData<LiveDataResult<BaseModel<Any>>>): MutableLiveData<LiveDataResult<BaseModel<Any>>> {
-        hashMap.put(key, values);
-        return values
-    }
-
-    fun getLiveData(key: String): MutableLiveData<LiveDataResult<BaseModel<Any>>> {
-        return hashMap[key]!!
-    }
 
     override fun onAttach(activityView: BaseActivity) {
         super.onAttach(activityView)
@@ -35,7 +23,6 @@ class LoginViewModel(dataManager: DataManager) : BaseViewModel(dataManager) {
     override fun onDetach() {
         super.onDetach()
     }
-
 
     fun amountUpdate() {
         amountLiveData.postValue("263")

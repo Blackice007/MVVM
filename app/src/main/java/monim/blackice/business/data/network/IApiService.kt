@@ -32,6 +32,14 @@ interface IApiService {
     ): Maybe<BaseModel<Any>>
 
 
+    @Headers("Content-Type: application/json")
+    @POST("{url}")
+    abstract fun postRequestForRaw(
+        @Path(value = "url", encoded = true) path: String,
+        @Body requestBody: RequestBody
+    ): Maybe<Any>
+
+
     /* @FormUrlEncoded
     @POST("login")
     abstract fun login(

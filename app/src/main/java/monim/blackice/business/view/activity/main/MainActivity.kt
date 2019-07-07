@@ -1,6 +1,7 @@
 package monim.blackice.business.view.activity.main
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -35,10 +36,8 @@ class MainActivity : BaseActivity() {
 
     override fun viewRelatedTask() {
 
-        this.viewModel.loadingLiveData.observe(this, this.loadingObserver)
-
         this.viewModel
-            .addLiveData(this.getString(R.string.key_livedata_login), MutableLiveData())
+            .addLiveData(this.getString(R.string.key_livedata_login))
             .observe(this, this.loginObserver)
 
 
@@ -52,17 +51,6 @@ class MainActivity : BaseActivity() {
             .generateDateTimeFormat().buildDateTime(0)
     }
 
-    private val loadingObserver = Observer<Boolean> { visibile ->
-
-        when (visibile) {
-            true -> binding.pb.visibility = View.VISIBLE
-            false -> binding.pb.visibility = View.GONE
-
-            else -> binding.pb.visibility = View.GONE
-        }
-    }
-
-
     private val loginObserver = Observer<LiveDataResult<BaseModel<Any>>> { result ->
 
         when (result?.status) {
@@ -71,10 +59,11 @@ class MainActivity : BaseActivity() {
                 binding.pb.visibility = View.VISIBLE
             }
             LiveDataResult.Status.ERROR -> {
+                binding.pb.visibility = View.GONE
                 showToast(applicationContext, result.err!!.message.toString())
             }
             LiveDataResult.Status.SUCCESS -> {
-
+                binding.pb.visibility = View.GONE
                 val moshi: Moshi = Moshi.Builder().build()
                 val adapter: JsonAdapter<UserData> = moshi.adapter(UserData::class.java)
 

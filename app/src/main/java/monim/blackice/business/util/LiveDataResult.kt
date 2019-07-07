@@ -5,7 +5,6 @@ class LiveDataResult<T>(val status: Status, val data: T? = null, val err: Throwa
         fun <T> succes(data: T?) = LiveDataResult(Status.SUCCESS, data)
         fun <T> loading() = LiveDataResult<T>(Status.LOADING)
         fun <T> error(err: Throwable?) = LiveDataResult<T>(Status.ERROR, null, err)
-        fun <T> error(err: String?) = LiveDataResult<T>(Status.ERROR, null, null,err)
     }
 
     enum class Status {
