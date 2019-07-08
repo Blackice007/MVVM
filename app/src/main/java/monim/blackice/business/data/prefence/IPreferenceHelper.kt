@@ -4,8 +4,8 @@ import monim.blackice.business.data.model.CurrentUserInfo
 import monim.blackice.business.data.model.user.User
 
 interface IPreferenceHelper {
-    fun PrefGetCurrentUser(): User
-    fun PrefLogin(user: User)
-    fun PrefLogout()
-    fun PrefGetLoginMode(): Boolean
+    fun prefGetCurrentUser(): User
+    fun prefLogin(user: User)
+    fun prefLogout()
+    fun prefGetLoginMode(): Boolean
 }

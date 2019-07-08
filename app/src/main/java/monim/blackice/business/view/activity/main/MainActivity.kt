@@ -59,6 +59,7 @@ class MainActivity : BaseActivity() {
                 binding.pb.visibility = View.VISIBLE
             }
             LiveDataResult.Status.ERROR -> {
+
                 binding.pb.visibility = View.GONE
                 showToast(applicationContext, result.err!!.message.toString())
             }

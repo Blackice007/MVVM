@@ -13,7 +13,7 @@ class PreferencesHelper(context: Context):IPreferenceHelper {
 
     private val mPrefs: SharedPreferences = context.getSharedPreferences("preference_name", Context.MODE_PRIVATE)
 
-    override fun PrefGetCurrentUser(): User {
+    override fun prefGetCurrentUser(): User {
         val user = User()
         user.name = mPrefs.getString(PREF_KEY_USER_NAME, null)
 //        user.email = mPrefs.getString(PREF_KEY_USER_EMAIL, null)
@@ -21,14 +21,14 @@ class PreferencesHelper(context: Context):IPreferenceHelper {
         return user
     }
 
-    override fun PrefLogin(user: User) {
+    override fun prefLogin(user: User) {
         mPrefs.edit().putBoolean(PREF_KEY_IS_LOGIN, true).apply()
         mPrefs.edit().putString(PREF_KEY_USER_NAME, user.name).apply()
 //        mPrefs.edit().putString(PREF_KEY_USER_EMAIL, user.email).apply()
 //        mPrefs.edit().putString(PREF_KEY_USER_PROFILE_PHOTO_URL, user.profileUrl).apply()
     }
 
-    override fun PrefLogout() {
+    override fun prefLogout() {
         mPrefs.edit().putString(PREF_KEY_USER_NAME, null).apply()
         mPrefs.edit().putString(PREF_KEY_USER_EMAIL, null).apply()
         mPrefs.edit().putString(PREF_KEY_USER_PROFILE_PHOTO_URL, null).apply()
@@ -36,7 +36,7 @@ class PreferencesHelper(context: Context):IPreferenceHelper {
 
     }
 
-    override fun PrefGetLoginMode(): Boolean {
+    override fun prefGetLoginMode(): Boolean {
         return mPrefs.getBoolean(PREF_KEY_IS_LOGIN, false)
     }
 

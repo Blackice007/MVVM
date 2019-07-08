@@ -3,7 +3,6 @@ package monim.blackice.business.data
 import android.content.Context
 import monim.blackice.business.data.local_db.IRoomHelper
 import monim.blackice.business.data.local_db.entity.User
-import monim.blackice.business.data.model.CurrentUserInfo
 import monim.blackice.business.data.network.ApiHelper
 import monim.blackice.business.data.prefence.IPreferenceHelper
 import sslwireless.android.easy.loyal.merchant.viewmodel.util.ApiCallbackHelper
@@ -19,8 +18,8 @@ class DataManager(
     val dbRoomHelper = dbRoomHelper
     val preferencesHelper = preferencesHelper
     val apiHelper = apiHelper
-    override fun PrefGetCurrentUser(): monim.blackice.business.data.model.user.User {
-        return preferencesHelper.PrefGetCurrentUser()
+    override fun prefGetCurrentUser(): monim.blackice.business.data.model.user.User {
+        return preferencesHelper.prefGetCurrentUser()
     }
 
 
@@ -28,16 +27,16 @@ class DataManager(
         apiHelper.apiLogin(msisdn,password,apiCallbackHelper)
     }
 
-    override fun PrefLogin(user: monim.blackice.business.data.model.user.User) {
-        preferencesHelper.PrefLogin(user)
+    override fun prefLogin(user: monim.blackice.business.data.model.user.User) {
+        preferencesHelper.prefLogin(user)
     }
 
-    override fun PrefLogout() {
-        preferencesHelper.PrefLogout()
+    override fun prefLogout() {
+        preferencesHelper.prefLogout()
     }
 
-    override fun PrefGetLoginMode(): Boolean {
-        return preferencesHelper.PrefGetLoginMode()
+    override fun prefGetLoginMode(): Boolean {
+        return preferencesHelper.prefGetLoginMode()
     }
 
     override fun roomGetAllUser(): List<User> {
